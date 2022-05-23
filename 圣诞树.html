@@ -1,0 +1,198 @@
+/用vscode制作/
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>圣诞树</title>
+ 
+  <link href="css/domtree.css" rel="stylesheet" media="screen" />
+ 
+  <link href='https://fonts.googleapis.com/css?family=Armata' rel='stylesheet' type='text/css'>
+
+</head>
+<body>
+<div class="tree"></div>
+ 
+  <script src="s/jquery-3.6.0.min.js"></script>
+ 
+  <!-- Third party scripts and sharing UI -->
+  <p class="project-title">圣诞树</p >
+ 
+  <div class="credits">
+   <a href=" ">我爱你</a>
+   <a href="https://twitter.com/hakimel">l</a>
+  </div>
+ 
+  <style type="text/css" media="screen">
+   .project-title {
+    position: absolute;
+    left: 25px;
+    bottom: 20px;
+ 
+    font-size: 16px;
+    color: #fff;
+   }
+ 
+   .credits {
+    position: absolute;
+    right: 20px;
+    bottom: 25px;
+    font-size: 15px;
+    z-index: 20;
+    color: #fff;
+    vertical-align: middle;
+   }
+ 
+   .credits * + * {
+    margin-left: 15px;
+   }
+ 
+   .credits a {
+    padding: 8px 10px;
+    color: rgba(255,255,255,0.7);
+    border: 2px solid rgba(255,255,255,0.7);
+    text-decoration: none;
+   }
+ 
+   .credits a:hover {
+    border-color: #fff;
+    color: #fff;
+   }
+ 
+   @media screen and (max-width: 1040px) {
+    .project-title {
+     display: none;
+    }
+ 
+    .credits {
+     width: 100%;
+     left: 0;
+     right: auto;
+     bottom: 0;
+     padding: 30px 0;
+     background: #b72424;
+     text-align: center;
+    }
+ 
+    .credits a {
+     display: inline-block;
+     margin-top: 7px;
+     margin-bottom: 7px;
+    }
+   }
+  </style>
+   <script>
+   var _gaq = [['_setAccount', 'UA-15240703-1'], ['_trackPageview']];
+   (function(d, t) {
+   var g = d.createElement(t),
+       s = d.getElementsByTagName(t)[0];
+   g.async = true;
+   g.src = ('https:' == location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+   s.parentNode.insertBefore(g, s);
+   })(document, 'script');
+   const width = 500;
+const height = 600;
+const quantity = 150;
+const types = [ 'text', 'select', 'progress', 'meter', 'button', 'radio', 'checkbox' ];
+const greetings = [ 键入自己需要的];
+let tree = document.querySelector( '.tree' ),
+ treeRotation = 0;
+ 
+tree.style.width = width + 'px';
+tree.style.height = height + 'px';
+ 
+window.addEventListener( 'resize', resize, false );
+ 
+// The tree
+for( var i = 0; i < quantity; i++ ) {
+ let element = null,
+  type = types[ Math.floor( Math.random() * types.length ) ],
+  greeting = greetings[ Math.floor( Math.random() * greetings.length ) ];
+ 
+ let x = width/2,
+  y = Math.round( Math.random() * height );
+ 
+ let rx = 0,
+  ry = Math.random() * 360,
+  rz = -Math.random() * 15;
+ 
+ let elemenWidth = 5 + ( ( y / height ) * width / 2 ),
+  elemenHeight = 26;
+  switch( type ) {
+  case 'button':
+   element = document.createElement( 'button' );
+   element.textContent = greeting;
+   element.style.width = elemenWidth + 'px';
+   element.style.height = elemenHeight + 'px';
+   break;
+  case 'progress':
+   element = document.createElement( 'progress' );
+   element.style.width = elemenWidth + 'px';
+   element.style.height = elemenHeight + 'px';
+   if( Math.random() > 0.5 ) {
+    element.setAttribute( 'max', '100' );
+    element.setAttribute( 'value', Math.round( Math.random() * 100 ) );
+   }
+   break;
+  case 'select':
+   element = document.createElement( 'select' );
+   element.setAttribute( 'selected', greeting );
+   element.innerHTML = '<option>' + greetings.join( '</option><option>' ) + '</option>';
+   element.style.width = elemenWidth + 'px';
+   element.style.height = elemenHeight + 'px';
+   break;
+  case 'meter':
+   element = document.createElement( 'meter' );
+   element.setAttribute( 'min', '0' );
+   element.setAttribute( 'max', '100' );
+   element.setAttribute( 'value', Math.round( Math.random() * 100 ) );
+   element.style.width = elemenWidth + 'px';
+   element.style.height = elemenHeight + 'px';
+   break;
+  case 'text':
+  default:
+   element = document.createElement( 'input' );
+   element.setAttribute( 'type', 'text' );
+   element.setAttribute( 'value', greeting );
+   element.style.width = elemenWidth + 'px';
+   element.style.height = elemenHeight + 'px';
+ }
+ 
+ element.style.transform = `translate3d(${x}px, ${y}px, 0px) rotateX(${rx}deg) rotateY(${ry}deg) rotateZ(${rz}deg)`;
+ 
+ tree.appendChild( element );
+}
+ 
+// Let it snow
+for( var i = 0; i < 200; i++ ) {
+ let element = document.createElement( 'input' );
+ element.setAttribute( 'type', 'radio' );
+ 
+ let spread = window.innerWidth/2;
+ 
+ let x = Math.round( Math.random() * spread ) - ( spread / 4 ),
+  y = Math.round( Math.random() * height ),
+  z = Math.round( Math.random() * spread ) - ( spread / 2 );
+ 
+ let rx = 0,
+  ry = Math.random() * 360,
+  rz = 0;
+ 
+ if( Math.random() > 0.5 ) element.setAttribute( 'checked', '' );
+ 
+ element.style.transform = `translate3d(${x}px, ${y}px, ${z}px) rotateX(${rx}deg) rotateY(${ry}deg) rotateZ(${rz}deg)`;
+ 
+ tree.appendChild( element );
+}
+ 
+function resize() {
+ tree.style.top = ( ( window.innerHeight - height - 100 ) / 2 ) + 'px';
+}
+ 
+resize();
+  </script>
+  
+</body>
+</html>
